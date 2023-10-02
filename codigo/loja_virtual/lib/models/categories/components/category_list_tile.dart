@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loja_virtual/main.dart';
-import 'package:loja_virtual/models/product_manager.dart';
-import 'package:provider/provider.dart';
 import '../category.dart';
 
 
@@ -11,18 +8,11 @@ class CategoryListTile extends StatelessWidget {
 
   final Category category;
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return  GestureDetector(
       onTap: (){
-
-          MyApp.init = category.id;
-          context.read<ProductManager>().loadAllProduct(category: category.id);
-          Navigator.of(context).pushNamed('/products', arguments: category);
-
+          Navigator.of(context).pushNamed('/products', arguments: category.id);
       },
       child: Card(
           shape: RoundedRectangleBorder(

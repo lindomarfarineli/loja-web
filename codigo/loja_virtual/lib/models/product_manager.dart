@@ -52,6 +52,7 @@ class ProductManager extends ChangeNotifier {
         /// aqui todos os produtos de determinada categoria sõa buscados
         allProducts = snapProducts.docs.map((d) =>
             Product.fromDocument(d)).toList();
+
     }
     notifyListeners();
   }

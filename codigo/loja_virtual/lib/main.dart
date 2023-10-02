@@ -77,7 +77,9 @@ class _MyAppState extends State<MyApp> {
                    product: settings.arguments as Product,
                 ));
               case '/products':
-                return MaterialPageRoute(builder: (_) =>  const ProductsScreen());
+                return MaterialPageRoute(builder: (_) =>   ProductsScreen(
+                  category:  settings.arguments as String,
+                ));
               default:
                 return MaterialPageRoute(builder: (_) => BaseScreen());
             }

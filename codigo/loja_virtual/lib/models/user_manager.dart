@@ -41,11 +41,7 @@ class UserManager extends ChangeNotifier{
 
       if(result.user != null){
         await _loadCurrentUser(userFireb: result.user );
-        print('check 2');
       }
-
-
-      print('check 3');
 
       onSucess();
       loading = false;
