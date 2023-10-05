@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:loja_virtual/screens/product_screen.dart';
+import 'package:loja_virtual/screens/product/product_screen.dart';
 import 'package:loja_virtual/screens/products_screen.dart';
 import 'package:loja_virtual/firebase_options.dart';
 import 'package:loja_virtual/models/product_manager.dart';

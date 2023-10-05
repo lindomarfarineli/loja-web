@@ -1,12 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class ItemSize{
 
-     ItemSize.fromMap(Map<String, dynamic> map ){
-       color = map['color'] as String ;
-       name = map['name'] as String;
-       price = map['price'] as num;
-       stock = map['stock'] as int;
+     ItemSize.fromMap(Map<String, dynamic>? map){
+       if(map != null){
+         color = map['color'] as String ;
+         name = map['name'] as String;
+         price = map['price'] as num;
+         stock = map['stock'] as int;
+       }
      }
 
       String? color;
