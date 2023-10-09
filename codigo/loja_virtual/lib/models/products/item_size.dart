@@ -1,26 +1,52 @@
 
 
-class ItemSize{
+import 'package:flutter/cupertino.dart';
+
+import 'data_size.dart';
+
+class ItemSize extends ChangeNotifier{
 
      ItemSize.fromMap(Map<String, dynamic>? map){
        if(map != null){
-         color = map['color'] as String ;
+
+         feature = map['feature'] as String ;
          name = map['name'] as String;
-         price = map['price'] as num;
-         stock = map['stock'] as int;
+         datas = (map['data'] as List<dynamic>).map((d) =>
+             DataSize.fromMap(d as Map<String, dynamic>)).toList();
        }
      }
 
-      String? color;
-      String? name;
-      num? price;
-      int? stock;
+     //ItemSize();
+     String? feature;
+     String? name;
+     List<DataSize>? datas;
 
-      bool get hasStock => stock! > 0;
+     //DataSize? _selectedData;
+     //DataSize? get selectedData => _selectedData;
+
+     //set selectedData(DataSize? value) {
+     //  _selectedData = value;
+     // notifyListeners();
+     //}
+
+     int get totalStock {
+       int stock =0;
+       if (datas != null) {
+         for (final data in datas!){
+           stock += data.stock!;
+         }
+       }
+       return stock;
+     }
+
+
+     bool get hasStock {
+       return totalStock > 0;
+     }
 
      @override
-     String toString() {
-       return 'ItemSize{color: $color, name: $name, price: $price, stock: $stock}';
-     }
+  String toString() {
+    return 'ItemSize{feature: $feature, name: $name, datas: $datas}';
+  }
 }
 

@@ -9,7 +9,7 @@ import '../models/products/components/search_dialog.dart';
 
 
 class ProductsScreen extends StatefulWidget {
-  ProductsScreen({super.key, required this.category});
+  const ProductsScreen({super.key, required this.category});
 
   final String category;
 
@@ -20,15 +20,14 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
 
-  @override
-  void initState() {
-    context.read<ProductManager>().loadAllProduct(category: widget.category);
-  }
+   @override
+   void initState() {
+     context.read<ProductManager>().loadAllProduct(category: widget.category);
+   }
   @override
   Widget build(BuildContext context) {
     double screen = MediaQuery.of(context).size.width;
     return Stack(
-
       children: [
         Container(
           decoration: const BoxDecoration(
@@ -116,6 +115,4 @@ class _ProductsScreenState extends State<ProductsScreen> {
       ],
     );
   }
-
-
 }

@@ -30,12 +30,12 @@ class MyApp extends StatefulWidget {
   static Color primary = const Color(0xFFFF6161);
   static String? init;
 
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
