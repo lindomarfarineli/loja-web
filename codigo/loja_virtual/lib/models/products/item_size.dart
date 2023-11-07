@@ -8,7 +8,6 @@ class ItemSize extends ChangeNotifier{
 
      ItemSize.fromMap(Map<String, dynamic>? map){
        if(map != null){
-
          feature = map['feature'] as String ;
          name = map['name'] as String;
          datas = (map['data'] as List<dynamic>).map((d) =>

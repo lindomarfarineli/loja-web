@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/screens/cart/cart_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:loja_virtual/screens/product/product_screen.dart';
@@ -10,7 +11,8 @@ import 'package:loja_virtual/models/user_manager.dart';
 import 'package:loja_virtual/screens/base_screen.dart';
 import 'package:loja_virtual/screens/login_screen.dart';
 import 'package:loja_virtual/screens/signup_screen.dart';
-import 'package:loja_virtual/screens/splash_screen.dart';
+import 'package:loja_virtual/screens/splash/splash_screen.dart';
+import 'models/cart_manager.dart';
 import 'models/category_manager.dart';
 import 'models/products/product.dart';
 
@@ -52,6 +54,12 @@ class _MyAppState extends State<MyApp> {
             create: (_) => ProductManager(MyApp.init),
             lazy: true,
           ),
+          ProxyProvider<UserManager, CartManager?>(
+              create: (_) => CartManager(),
+              lazy: false,
+            update: (_, userManager, cartManager) =>
+            cartManager!..updateUser(userManager),
+          ),
         ],
         child: MaterialApp(
           title: 'Instituto GCM',
@@ -80,6 +88,8 @@ class _MyAppState extends State<MyApp> {
                 return MaterialPageRoute(builder: (_) =>   ProductsScreen(
                   category:  settings.arguments as String,
                 ));
+              case '/cart':
+                return MaterialPageRoute(builder: (_) => const CartScreen());
               default:
                 return MaterialPageRoute(builder: (_) => BaseScreen());
             }

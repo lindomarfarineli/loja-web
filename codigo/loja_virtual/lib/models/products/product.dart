@@ -9,6 +9,7 @@ class Product extends ChangeNotifier{
 
   String? id;
   String? name;
+  String? type;
   String? description;
   List<String>? images;
   List<ItemSize>? sizes;
@@ -18,6 +19,7 @@ class Product extends ChangeNotifier{
     id = doc.id;
     name = doc.get("name");
     description = doc.get('description');
+    type = doc.get('type');
     images = List<String>.from(doc.get("images") as List<dynamic> );
     sizes = (doc.get('sizes') as List<dynamic>).map((s) => ItemSize.fromMap(s as Map<String, dynamic> )).toList();
     datas = (sizes![0].datas as List<DataSize>).map((d) => d ).toList();
@@ -61,5 +63,21 @@ class Product extends ChangeNotifier{
    bool get hasStock {
      return totalStock > 0;
    }
+
+   ItemSize? findSize(String name){
+      return sizes?.firstWhere((s) => s.name == name);
+    }
+
+   DataSize? findData(String? data){
+     if (datas.isNotEmpty){
+       return datas.firstWhere((d) => d.data == data);
+     } else {
+       return null;
+     }
+
+
+
+   }
+
 
 }

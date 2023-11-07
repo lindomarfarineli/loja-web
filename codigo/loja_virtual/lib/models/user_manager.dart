@@ -16,7 +16,7 @@ class UserManager extends ChangeNotifier{
 /// váriaveis de banco /////////////////////////////////////////////////////////
   final db = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
-   User? user;
+  User? user;
 
 
  UserPerson? userp;
