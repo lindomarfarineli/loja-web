@@ -60,4 +60,21 @@ class CartProduct {
   num get unitPrice {
       return itemData?.price ?? 0;
   }
+
+  Map<String, dynamic> toCartItemMap() {
+    return {
+      'pid': productId,
+      'type': type,
+      'quantity': quantity,
+      'size': size,
+      'data': data
+    };
+  }
+
+  bool stackable(Product product) {
+    return product.id == productId &&
+           product.selectedSize?.name == size &&
+           product.selectedData?.data == data;
+  }
+
 }

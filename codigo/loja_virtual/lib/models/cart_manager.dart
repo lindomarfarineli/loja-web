@@ -12,11 +12,10 @@ class CartManager  {
   UserPerson? userp;
 
   void updateUser(UserManager userManager) {
-    print('vai chamar o userManager');
+
     userp = userManager.userp;
-    print('Se deu certo há um nome -> ${userp?.name}');
     items.clear();
-    print( 'O carrinho foi limpo');
+
 
     if (userp != null){
       print('Chamou o update user, o usuário não é nulo');
@@ -34,12 +33,17 @@ class CartManager  {
   }
 
   void addToCart(Product product){
+    try{
+      final e = items.firstWhere((p) => p.stackable(product));
+      e.quantity = e.quantity! + 1 ;
+    } catch(e) {
+      final cartProduct = CartProduct.fromProduct(product);
+      items.add(cartProduct);
+      userp!.cartReference.add(cartProduct.toCartItemMap());
+    }
 
-    print('Dentro do addtoCart');
-    print(product.name);
-    print(product.selectedData!.data);
 
-    items.add(CartProduct.fromProduct(product));
+
 
   }
 }

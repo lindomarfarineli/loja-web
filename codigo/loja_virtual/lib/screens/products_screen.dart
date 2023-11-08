@@ -24,6 +24,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
    void initState() {
      context.read<ProductManager>().loadAllProduct(category: widget.category);
    }
+
   @override
   Widget build(BuildContext context) {
     double screen = MediaQuery.of(context).size.width;
@@ -109,6 +110,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     );
                   }
               ),
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: Colors.white,
+                foregroundColor: MyApp.primary,
+                onPressed: (){
+                  Navigator.of(context).pushNamed('/cart');
+                },
+                child: const Icon(Icons.shopping_cart),
+              ) ,
               );
           }
         ),
