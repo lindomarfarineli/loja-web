@@ -28,7 +28,8 @@ class CartScreen extends StatelessWidget {
             builder: (_, cartManager, __) {
               return Column(
                 children: cartManager.items.map(
-                    (cartProduct) => CartTile(cartProduct: cartProduct,)).toList()
+                    (cartProduct) => CartTile(cartProduct: cartProduct)
+                ).toList()
                 );
             }
           ),

@@ -1,11 +1,11 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/models/products/product.dart';
 import 'package:loja_virtual/models/user.dart';
 import 'package:loja_virtual/models/user_manager.dart';
 import 'cart_product.dart';
 
-class CartManager  {
+class CartManager extends ChangeNotifier {
 
   List<CartProduct> items = [];
 
@@ -18,10 +18,7 @@ class CartManager  {
 
 
     if (userp != null){
-      print('Chamou o update user, o usuário não é nulo');
       _loadCartItems();
-    } else {
-      print ('usuário é nulo no cartManager');
     }
 
   }
@@ -29,21 +26,42 @@ class CartManager  {
   Future<void> _loadCartItems() async {
     final QuerySnapshot cartSnap = await userp!.cartReference.get();
 
-    items = cartSnap.docs.map((d) => CartProduct.fromDocument(d)).toList();
+    items = cartSnap.docs.map(
+            (d) => CartProduct.fromDocument(d)..addListener(_onItemUpdated)
+    ).toList();
   }
 
-  void addToCart(Product product){
+  void addToCart(Product product) async {
     try{
       final e = items.firstWhere((p) => p.stackable(product));
-      e.quantity = e.quantity! + 1 ;
+      e.increment();
     } catch(e) {
       final cartProduct = CartProduct.fromProduct(product);
+      cartProduct.addListener(_onItemUpdated);
       items.add(cartProduct);
-      userp!.cartReference.add(cartProduct.toCartItemMap());
+      await userp!.cartReference.add(cartProduct.toCartItemMap()).then(
+              (doc) => cartProduct.id = doc.id);
     }
+  }
 
+  void _onItemUpdated(){
+    for (final cartProduct in items) {
+      if (cartProduct.quantity == 0) {
+        removeFromCart(cartProduct);
+      }
+      _updateCartProduct(cartProduct);
+    }
+  }
+  
+  void _updateCartProduct(CartProduct cartProduct) {
+    userp?.cartReference.doc(cartProduct.id).
+    update(cartProduct.toCartItemMap());
+  }
 
-
-
+  void removeFromCart(CartProduct cartProduct){
+    items.removeWhere((p) => p.id == cartProduct.id);
+    userp?.cartReference.doc(cartProduct.id).delete();
+    cartProduct.removeListener(_onItemUpdated);
+    notifyListeners();
   }
 }

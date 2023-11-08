@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/models/products/data_size.dart';
 import 'package:loja_virtual/models/products/item_size.dart';
 import 'package:loja_virtual/models/products/product.dart';
 
-class CartProduct {
+class CartProduct extends ChangeNotifier {
 
   final db = FirebaseFirestore.instance;
 
@@ -16,12 +17,9 @@ class CartProduct {
   }
 
   CartProduct.fromDocument(DocumentSnapshot doc) {
-    print('CartProduct foi chamado');
-    print('o valor de product é ${product?.name}');
+    id = doc.id;
     productId = doc.get('pid');
-    print('o valor de pid é $productId');
     quantity = doc.get('quantity');
-    print('O valor de quantity é $quantity');
     size = doc.get('size');
     print('O valor de size é $size');
     type = doc.get('type');
@@ -36,10 +34,9 @@ class CartProduct {
            print('O valor de product dentro do them agora é ${product?.name}')
     }
     );
-
-    print('O valor de product agora é ${product?.name}');
   }
 
+  String? id;
   String? productId;
   String? type;
   int? quantity;
@@ -75,6 +72,19 @@ class CartProduct {
     return product.id == productId &&
            product.selectedSize?.name == size &&
            product.selectedData?.data == data;
+  }
+
+  void increment() {
+    quantity = quantity! + 1;
+    notifyListeners();
+  }
+
+  void decrement() {
+    if ( quantity! > 0){
+      quantity = quantity! - 1;
+      notifyListeners();
+    }
+
   }
 
 }
