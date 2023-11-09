@@ -21,18 +21,14 @@ class CartProduct extends ChangeNotifier {
     productId = doc.get('pid');
     quantity = doc.get('quantity');
     size = doc.get('size');
-    print('O valor de size é $size');
     type = doc.get('type');
-    print('O valor de type é $type');
     data = doc.get('data');
-    print('O valor de data é $data');
 
-    print('vai realizar uma pesquisa no banco');
     db.collection('products').doc(type).collection('items').doc(productId)
         .get().then((doc)  => {
            product = Product.fromDocument(doc),
-           print('O valor de product dentro do them agora é ${product?.name}')
-    }
+           notifyListeners()
+        }
     );
   }
 
@@ -56,6 +52,10 @@ class CartProduct extends ChangeNotifier {
 
   num get unitPrice {
       return itemData?.price ?? 0;
+  }
+
+  num get totalPrice {
+    return unitPrice * quantity!;
   }
 
   Map<String, dynamic> toCartItemMap() {
@@ -84,7 +84,14 @@ class CartProduct extends ChangeNotifier {
       quantity = quantity! - 1;
       notifyListeners();
     }
+  }
 
+  bool get hasStock {
+    final data = itemData;
+    if(data == null) {
+      return false;
+    }
+    return data.stock! >= quantity! ;
   }
 
 }
