@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:loja_virtual/models/page_manager.dart';
@@ -18,12 +19,7 @@ class BaseScreen extends StatelessWidget {
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          Scaffold(
-            drawer: const CustomDrawer() ,
-            appBar: AppBar(
-              title: const Text('Home 1'),
-            ),
-          ),
+          const HomeScreen(),
           const CategoryScreen(),
           Scaffold(
             drawer: const CustomDrawer() ,

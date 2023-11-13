@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/models/home_manager.dart';
 import 'package:loja_virtual/screens/cart/cart_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +54,10 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(
             create: (_) => ProductManager(MyApp.init),
             lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (_) => HomeManager(),
+            lazy: false,
           ),
           ChangeNotifierProxyProvider<UserManager, CartManager?>(
               create: (_) => CartManager(),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:loja_virtual/models/products/product.dart';
+import 'package:loja_virtual/models/section_item.dart';
 
 
 class ProductManager extends ChangeNotifier {
@@ -41,7 +42,6 @@ class ProductManager extends ChangeNotifier {
     return filteredProducts;
   }
 
-
   Future<void> loadAllProduct({String? category}) async {
 
       if(category != null ){
@@ -52,9 +52,20 @@ class ProductManager extends ChangeNotifier {
         /// aqui todos os produtos de determinada categoria sõa buscados
         allProducts = snapProducts.docs.map((d) =>
             Product.fromDocument(d)).toList();
-
     }
     notifyListeners();
+  }
+
+    Future<Product?> findProductById (SectionItem item) async {
+
+    await loadAllProduct(category: item.category);
+
+    try {
+      return allProducts.firstWhere((p) => p.id == item.product);
+    } catch (e) {
+      return null;
+    }
+
   }
 
 }

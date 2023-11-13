@@ -30,7 +30,7 @@ class ProductScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Center(
           child: SizedBox(
-            width: screen > 480 ? 700 :double.maxFinite,
+            width: screen > 480 ? 800 :double.maxFinite,
             child: ListView(
               children: [
                 AspectRatio(

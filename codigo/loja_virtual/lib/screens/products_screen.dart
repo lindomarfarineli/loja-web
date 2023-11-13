@@ -99,7 +99,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     final filteredProducts = productManager.filteredProducts;
                     return  Center(
                       child: SizedBox(
-                        width: screen > 480 ? 500 :double.maxFinite,
+                        width: screen > 480 ? 800 :double.maxFinite,
                         child: ListView.builder(
                             padding: const EdgeInsets.all(4),
                             itemCount: filteredProducts.length,

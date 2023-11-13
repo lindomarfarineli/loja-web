@@ -31,7 +31,7 @@ class CategoryScreen extends StatelessWidget {
               builder: (_, categoryManager, __){
                 return  Center(
                   child: SizedBox(
-                    width: screen > 480 ? 500 :double.maxFinite,
+                    width: screen > 480 ? 800 :double.maxFinite,
                     child: ListView.builder(
                         padding: const EdgeInsets.all(4),
                         itemCount: categoryManager.allCategories.length,

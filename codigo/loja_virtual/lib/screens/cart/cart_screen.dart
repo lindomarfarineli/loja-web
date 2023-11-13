@@ -12,6 +12,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primary = MyApp.primary;
+    double screen = MediaQuery.of(context).size.width;
     return  Stack(
       children: [
         Container(
@@ -19,28 +20,33 @@ class CartScreen extends StatelessWidget {
               gradient: MyApp.gradient
           ),
         ),
-        Scaffold(
-          appBar: AppBar(
-            title: const Text('Carrinho'),
-            centerTitle: true,
-            backgroundColor: primary,
-          ),
-          body: Consumer<CartManager>(
-            builder: (_, cartManager, __) {
-              return ListView(
-                children: [
-                  Column(
-                    children: cartManager.items.map(
-                      (cartProduct) => CartTile(cartProduct: cartProduct)
-                    ).toList()
-                  ),
-                  PriceCard(
-                    buttonText: 'Continuar para Entrega',
-                    onPressed: cartManager.isCartValid? (){}:null,
-                  )
-                ],
-              );
-            }
+        Center(
+          child: SizedBox(
+            width: screen > 480 ? 800 :double.maxFinite,
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text('Carrinho'),
+                centerTitle: true,
+                backgroundColor: primary,
+              ),
+              body: Consumer<CartManager>(
+                builder: (_, cartManager, __) {
+                  return ListView(
+                    children: [
+                      Column(
+                        children: cartManager.items.map(
+                          (cartProduct) => CartTile(cartProduct: cartProduct)
+                        ).toList()
+                      ),
+                      PriceCard(
+                        buttonText: 'Continuar para Entrega',
+                        onPressed: cartManager.isCartValid? (){}:null,
+                      )
+                    ],
+                  );
+                }
+              ),
+            ),
           ),
         ),
       ],

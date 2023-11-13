@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
     double largeSB = MediaQuery.of(context).size.width < 500?
     large * 0.9222 :
     MediaQuery.of(context).size.width > 500 &&
-        MediaQuery.of(context).size.width < 800? 400 : 500;
+        MediaQuery.of(context).size.width < 800? 400 : 800;
     return Stack(children: [
       Container(
         decoration: const BoxDecoration(gradient: MyApp.gradient),

@@ -81,7 +81,6 @@ class CartTile extends StatelessWidget {
                           iconData: Icons.add,
                           color: primary,
                           onTap: (){
-                            print('clicou no ontap increment');
                             cartProduct.increment();
                           },
                         ),
@@ -91,7 +90,6 @@ class CartTile extends StatelessWidget {
                           iconData: Icons.remove,
                           color: cartProduct.quantity! > 1? primary : Colors.grey,
                           onTap: (){
-                            print('Clicou no ontap decrement');
                             cartProduct.decrement();
                           },
                         ),

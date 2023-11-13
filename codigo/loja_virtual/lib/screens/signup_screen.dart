@@ -63,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
         : MediaQuery.of(context).size.width > 500 &&
                 MediaQuery.of(context).size.width < 800
             ? 500
-            : 700;
+            : 800;
     double fields = largeSB - 64;
     return Stack(children: [
       Container(
